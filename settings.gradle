@@ -1,0 +1,3 @@
+rootProject.name = "ViewColorDetector"
+include ':app'
+include ':viewcolordetector'
