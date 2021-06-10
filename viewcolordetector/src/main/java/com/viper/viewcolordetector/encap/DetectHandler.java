@@ -9,13 +9,14 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.viper.viewcolordetector.DetectClient;
+import com.viper.viewcolordetector.tools.SaveTools;
 
 import static com.viper.viewcolordetector.DetectClient.LOG_TAG;
 
 
 /**
  * created by viper on 2021/6/6
- * desc
+ * desc handler的简单封装
  */
 public class DetectHandler extends Handler {
 
@@ -38,6 +39,8 @@ public class DetectHandler extends Handler {
                     Log.d(LOG_TAG, "Bitmap保存失败");
                 if (!data.activitySave.onActivitySave(data.getActivity(), data.start))
                     Log.d(LOG_TAG, "Activity的信息保存失败");
+                if (data.errorInfo != null)
+                    data.errorInfo.onErrorInfo(SaveTools.getErrorInfo(data.getActivity(), data.start));
             }
             if (bm != null && !bm.isRecycled()) bm.recycle();
             Log.d(LOG_TAG, "检测耗时" + (System.currentTimeMillis() - start) + "ms");

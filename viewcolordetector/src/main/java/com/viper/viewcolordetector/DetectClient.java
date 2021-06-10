@@ -17,7 +17,7 @@ import com.viper.viewcolordetector.tools.SaveTools;
 
 /**
  * created by viper on 2021/6/6
- * desc
+ * desc detect客户端，配置参数控制检测行为，提交检测任务
  */
 public class DetectClient implements LifecycleObserver {
     public static final String LOG_TAG = "UIColorDetector";
@@ -28,6 +28,7 @@ public class DetectClient implements LifecycleObserver {
     public final IMemo memo;
     public final IBitmapSave bmSave;
     public final IActivitySave activitySave;
+    public final IActivityErrorInfo errorInfo;
     private final View mView;
     private final Activity mActivity;
     private final long mDelay;
@@ -44,6 +45,7 @@ public class DetectClient implements LifecycleObserver {
         this.bmSave = builder.bmSave;
         this.activitySave = builder.activitySave;
         this.start = builder.start;
+        this.errorInfo = builder.errorInfo;
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
@@ -91,6 +93,10 @@ public class DetectClient implements LifecycleObserver {
         boolean onActivitySave(Activity activity, long start);
     }
 
+    public interface IActivityErrorInfo {
+        void onErrorInfo(String errorInfo);
+    }
+
     public static final class Builder {
         private final View view;
         private long delay;
@@ -101,6 +107,7 @@ public class DetectClient implements LifecycleObserver {
         private IBitmapSave bmSave;
         private IActivitySave activitySave;
         private long start;
+        private IActivityErrorInfo errorInfo;
 
         public Builder(@NonNull View view) {
             this.view = view;
@@ -145,6 +152,11 @@ public class DetectClient implements LifecycleObserver {
 
         public Builder onActivitySave(IActivitySave save) {
             this.activitySave = save;
+            return this;
+        }
+
+        public Builder onActivityErrorInfo(IActivityErrorInfo errorInfo) {
+            this.errorInfo = errorInfo;
             return this;
         }
 

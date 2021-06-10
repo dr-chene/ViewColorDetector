@@ -5,7 +5,7 @@ import android.content.Context;
 
 /**
  * created by viper on 2021/6/7
- * desc
+ * desc 获取运行时的消息工具
  */
 public class RuntimeInfoTools {
 

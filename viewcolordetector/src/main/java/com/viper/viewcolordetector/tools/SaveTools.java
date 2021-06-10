@@ -29,7 +29,7 @@ import static com.viper.viewcolordetector.DetectClient.LOG_TAG;
 
 /**
  * created by viper on 2021/6/6
- * desc
+ * desc 保存工具
  */
 public class SaveTools {
 
@@ -62,7 +62,7 @@ public class SaveTools {
 
     public static boolean saveActivityInfo(Activity activity, long start) {
         if (activity == null) return false;
-        File file = new File(activity.getFilesDir(), "activity_error_info");
+        File file = new File(activity.getApplicationContext().getFilesDir(), "activity_error_info");
         String errorInfo = getErrorInfo(activity, start);
         return saveErrorInfoToFile(file, errorInfo);
     }
@@ -89,7 +89,7 @@ public class SaveTools {
         return true;
     }
 
-    private static String getErrorInfo(Activity activity, long start){
+    public static String getErrorInfo(Activity activity, long start){
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(System.currentTimeMillis());
         //activity名字
         String name = activity.getPackageName() + "." + activity.getLocalClassName();

@@ -5,7 +5,7 @@ import android.os.Looper;
 
 /**
  * created by viper on 2021/6/6
- * desc
+ * desc HandlerThread的简单封装
  */
 public class DetectHandlerThread {
     private final HandlerThread mHandlerThread;

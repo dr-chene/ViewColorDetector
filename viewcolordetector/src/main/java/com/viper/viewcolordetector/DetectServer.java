@@ -8,7 +8,7 @@ import com.viper.viewcolordetector.encap.DetectHandlerThread;
 
 /**
  * created by viper on 2021/6/6
- * desc
+ * desc detect服务，使用handler提交检测任务到HandlerThread
  */
 class DetectServer {
 

@@ -7,7 +7,7 @@ import android.view.View;
 
 /**
  * created by viper on 2021/6/7
- * desc
+ * desc 检测工具
  */
 public class DetectTools {
 
