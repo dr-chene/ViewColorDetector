@@ -63,6 +63,33 @@ public class SaveTools {
     public static boolean saveActivityInfo(Activity activity, long start) {
         if (activity == null) return false;
         File file = new File(activity.getFilesDir(), "activity_error_info");
+        String errorInfo = getErrorInfo(activity, start);
+        return saveErrorInfoToFile(file, errorInfo);
+    }
+
+    private static boolean saveErrorInfoToFile(File file, String info) {
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream(file, true)
+            ));
+            out.write(info);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            try {
+                if (out != null) {
+                    out.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+
+    private static String getErrorInfo(Activity activity, long start){
         String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA).format(System.currentTimeMillis());
         //activity名字
         String name = activity.getPackageName() + "." + activity.getLocalClassName();
@@ -93,36 +120,14 @@ public class SaveTools {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String str = "发现时间：" + date + "\n" +
+        String errorInfo = "发现时间：" + date + "\n" +
                 "Activity名字：" + name + "\n" +
                 "存在时长：" + run + "ms" + "\n" +
                 "是否位与前台：" + isTop + "\n" +
                 "是否处于活跃状态：" + isActive + "\n" +
                 "版本号：" + versionCode + "\n" +
                 "版本名：" + versionName + "\n";
-        Log.d(LOG_TAG, "saveActivityInfo: " + str);
-        return saveInfoToFile(file, str);
-    }
-
-    private static boolean saveInfoToFile(File file, String info) {
-        BufferedWriter out = null;
-        try {
-            out = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream(file, true)
-            ));
-            out.write(info);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        } finally {
-            try {
-                if (out != null) {
-                    out.close();
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return true;
+        Log.d(LOG_TAG, "saveActivityInfo: " + errorInfo);
+        return errorInfo;
     }
 }

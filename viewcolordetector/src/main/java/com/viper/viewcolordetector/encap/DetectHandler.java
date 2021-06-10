@@ -41,6 +41,6 @@ public class DetectHandler extends Handler {
             }
             if (bm != null && !bm.isRecycled()) bm.recycle();
             Log.d(LOG_TAG, "检测耗时" + (System.currentTimeMillis() - start) + "ms");
-        } else Log.d(LOG_TAG, "数据参数错误");
+        } else Log.d(LOG_TAG, "数据参数错误，检测取消");
     }
 }
